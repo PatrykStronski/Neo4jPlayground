@@ -51,6 +51,21 @@ const init = async () => {
 		});
 
 		server.route({ 
+			method: 'POST',
+			path: '/actors_relations',
+			handler: async (request, h) => {
+				try {
+					const payload = request.payload;
+					const result = await session.run(`MATCH (n:Person { name: "${payload.name}" }) -- (b:Person) RETURN b.name as name`);
+					const actors = result.records.map(rec => rec.get('name'));
+					return actors;
+				} catch (e) {
+					return h.response('Sth went wrong').code(500);
+				}
+			}
+		});
+
+		server.route({ 
 			method: 'GET',
 			path: '/all_actors_nmb',
 			handler: async (request, h) => {
