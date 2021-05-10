@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  neo_dest:
+    image: neo4j:4.2.0
+    user: ${UID:-1000}:${GID:-1000}
+    volumes:
+      - ../neo4j_playground_storage:/data
+    environment:
+      NEO4J_AUTH: "neo4j/test"
+
+  app:
+    build: ./docker/node
+    volumes:
+      - ./:/app
