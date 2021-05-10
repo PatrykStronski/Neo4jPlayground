@@ -1,4 +1,9 @@
 from node:16-slim
 
-yarn install
-yarn start
+WORKDIR /app
+
+COPY package.json package.json
+
+RUN yarn install
+EXPOSE 3000
+RUN yarn start

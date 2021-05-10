@@ -10,6 +10,10 @@ services:
       NEO4J_AUTH: "neo4j/test"
 
   app:
-    build: ./docker/node
+    image: node:16-slim
+    command: sh -c "cd /app && yarn install && yarn start"
+    #build: ./docker-node/
     volumes:
       - ./:/app
+    ports:
+      - 3000:3000
